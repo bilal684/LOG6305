@@ -49,8 +49,6 @@ public class RandomCoverageTest extends CoverageTest {
 		// Compute it accumulatively.
 		// Only system.out.println(testData) when they contribute to increase the
 		// coverage.
-		/*this.branchesTested.size() */
-		/*coverage =*/
 		for(String s : instrumentingOutputs)
 		{
 			if(s.contains("trace"))
