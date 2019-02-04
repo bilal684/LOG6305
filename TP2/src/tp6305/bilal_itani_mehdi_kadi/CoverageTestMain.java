@@ -1,4 +1,4 @@
-package tp6305.your_name;
+package tp6305.bilal_itani_mehdi_kadi;
 
 import tp6305.CoverageTest;
 

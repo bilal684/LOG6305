@@ -30,39 +30,39 @@ public class triangle {
         float side2  = sides[1];
         float side3  = sides[2];
         
-        if (sides.length != 3) {
+        if (sides.length != 3) { //C33
             ret = ILLEGAL_ARGUMENTS;
         } else {
-            if (side1 < 0 || side2 < 0 || side3 < 0) {
+            if (side1 < 0 || side2 < 0 || side3 < 0) { //C36
                 ret = ILLEGAL_ARGUMENTS;
             } else {
                 int triang = 0;
-                if (side1 == side2) {
+                if (side1 == side2) { //C40
                     triang = triang + 1;
                 }
-                if (side2 == side3) {
+                if (side2 == side3) { //C43
                     triang = triang + 2;
                 }
-                if (side1 == side3) {
+                if (side1 == side3) { //C46
                     triang = triang + 3;
                 }
-                if (triang == 0) {
-                    if (side1 + side2 < side3 || side2 + side3 < side1 || side1 + side3 < side2) {
+                if (triang == 0) { //C49
+                    if (side1 + side2 < side3 || side2 + side3 < side1 || side1 + side3 < side2) { //C50
                         ret = ILLEGAL;
                     } else {
                         ret = SCALENE;
                     }
                 } else {
-                    if (triang > 3) {
+                    if (triang > 3) { //C56
                         ret = EQUILATERAL;
                     } else {
-                        if (triang == 1 && side1 + side2 > side3) {
+                        if (triang == 1 && side1 + side2 > side3) { //C59
                             ret = ISOCELES;
                         } else {
-                            if (triang == 2 && side2 + side3 > side1) {
+                            if (triang == 2 && side2 + side3 > side1) { //C62
                                 ret = ISOCELES;
                             } else {
-                                if (triang == 3 && side1 + side3 > side2) {
+                                if (triang == 3 && side1 + side3 > side2) { //C65
                                     ret = ISOCELES;
                                 } else {
                                     ret = ILLEGAL;
