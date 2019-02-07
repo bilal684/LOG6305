@@ -143,5 +143,11 @@ public class SearchBasedTest extends CoverageTest {
 	    bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
 	    return bd.floatValue();
 	}
+	
+	private float getFitness()
+	{
+		//TODO implement this.
+		return 0.0f;
+	}
 
 }
