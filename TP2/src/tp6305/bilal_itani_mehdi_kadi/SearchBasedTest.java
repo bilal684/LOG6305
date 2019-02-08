@@ -144,9 +144,33 @@ public class SearchBasedTest extends CoverageTest {
 	    return bd.floatValue();
 	}
 	
-	private float getFitness()
+	private float getFitness(float a, float b, operator op)
 	{
 		//TODO implement this.
+		if(op == operator.e)
+		{
+			
+		}
+		else if (op == operator.g)
+		{
+			
+		}
+		else if (op == operator.ge)
+		{
+			
+		}
+		else if (op == operator.l)
+		{
+			
+		}
+		else if (op == operator.le)
+		{
+			
+		}
+		else if (op == operator.ne)
+		{
+			
+		}
 		return 0.0f;
 	}
 
