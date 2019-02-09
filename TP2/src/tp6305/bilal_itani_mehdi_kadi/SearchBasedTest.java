@@ -15,8 +15,8 @@ public class SearchBasedTest extends CoverageTest {
 
 	private List<ExecPath> allPaths = new ArrayList<>();
 
-	private static final int MIN = -1;
-	private static final int MAX = 30;
+	private static final int MIN = -10;
+	private static final int MAX = 10;
 	Map<String, Float> data = new HashMap<>();
 	private int pathIdx = 0;
 	private double coverage = 0.0;
@@ -57,7 +57,7 @@ public class SearchBasedTest extends CoverageTest {
 					iterationNum++;
 					break;
 				}
-				float fitness = getFitness(data.get(c.getLeftOperand().name()), c.getOperator(),
+				float fitness = FitnessFunction.getFitness(data.get(c.getLeftOperand().name()), c.getOperator(),
 						data.get(c.getRightOperand().name()));
 				if (fitness == 0.0f) {
 					satisfiedConditions++;
@@ -227,48 +227,6 @@ public class SearchBasedTest extends CoverageTest {
 		BigDecimal bd = new BigDecimal(Float.toString(d));
 		bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
 		return bd.floatValue();
-	}
-
-	private float getFitness(float a, operator op, float b) {
-		float k = 1.0f;
-		if (op == operator.e) {
-			if (a == b) {
-				return 0.0f;
-			} else {
-				return Math.abs(a - b);
-			}
-		} else if (op == operator.g) {
-			if (a > b) {
-				return 0;
-			} else {
-				return b - a + k;
-			}
-		} else if (op == operator.ge) {
-			if (a >= b) {
-				return 0.0f;
-			} else {
-				return b - a;
-			}
-		} else if (op == operator.l) {
-			if (a < b) {
-				return 0.0f;
-			} else {
-				return a - b + k;
-			}
-		} else if (op == operator.le) {
-			if (a <= b) {
-				return 0.0f;
-			} else {
-				return a - b;
-			}
-		} else if (op == operator.ne) {
-			if (a != b) {
-				return 0.0f;
-			} else {
-				return k;
-			}
-		}
-		return 0.0f;
 	}
 
 	private void initializeRandomData() {
