@@ -16,9 +16,8 @@ public class ExecPath {
 	public void setAllConditions(List<Condition> allConditions) {
 		this.allConditions = allConditions;
 	}
-	
-	public void addPathCondition(operand left, operator op, operand right)
-	{
+
+	public void addPathCondition(operand left, operator op, operand right) {
 		allConditions.add(new Condition(left, op, right));
 	}
 }
