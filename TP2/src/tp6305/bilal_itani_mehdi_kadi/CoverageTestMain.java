@@ -10,7 +10,7 @@ public class CoverageTestMain {
 	public static void main(String[] args) {
 
 
-		CoverageTest coverageTest = new RandomCoverageTest();
+		CoverageTest coverageTest = new SearchBasedTest();
 
 
 		testBranchCoverage(coverageTest, 0.70);
@@ -28,7 +28,7 @@ public class CoverageTestMain {
 			double coverageThreshold) {
 		int total = 0;
 		for (int i = 0; i < 3; i++) {
-			
+
 			coverageTest.testBranchCoverage(coverageThreshold);
 
 			System.out.println("BranchCoverage is "
