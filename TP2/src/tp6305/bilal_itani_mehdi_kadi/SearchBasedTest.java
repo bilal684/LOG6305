@@ -15,8 +15,8 @@ public class SearchBasedTest extends CoverageTest {
 
 	private List<ExecPath> allPaths = new ArrayList<>();
 
-	private static final int MIN = -10;
-	private static final int MAX = 10;
+	private static final int MIN = -1;
+	private static final int MAX = 100;
 	Map<String, Float> data = new HashMap<>();
 	private int pathIdx = 0;
 	private double coverage = 0.0;
@@ -45,7 +45,7 @@ public class SearchBasedTest extends CoverageTest {
 				if (internalIt > 5000) // in case we get stuck and can't find an answer.
 				{
 					internalIt = 0;
-					reset();
+					pathIdx = 0;
 					initializeRandomData();
 					iterationNum++;
 					break;
