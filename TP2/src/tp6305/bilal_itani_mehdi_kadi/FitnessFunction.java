@@ -17,7 +17,7 @@ public class FitnessFunction {
 	 * @return fitness value
 	 */
 	public static float getFitness(float a, Operator op, float b) {
-		float k = 1.0f; //This k value was chosen randomly. It could also be any other positive value. Choosing a negative value may affect our implementation.
+		float epsilon = 1.0f; //This value should Float.MIN_VALUE, we choose to put 1.0f for better performance.
 		if (op == Operator.e) {
 			if (a == b) {
 				return 0.0f;
@@ -28,7 +28,7 @@ public class FitnessFunction {
 			if (a > b) {
 				return 0;
 			} else {
-				return b - a + k;
+				return b - a + epsilon;
 			}
 		} else if (op == Operator.ge) {
 			if (a >= b) {
@@ -40,7 +40,7 @@ public class FitnessFunction {
 			if (a < b) {
 				return 0.0f;
 			} else {
-				return a - b + k;
+				return a - b + epsilon;
 			}
 		} else if (op == Operator.le) {
 			if (a <= b) {
@@ -52,7 +52,7 @@ public class FitnessFunction {
 			if (a != b) {
 				return 0.0f;
 			} else {
-				return k;
+				return epsilon;
 			}
 		}
 		return 0.0f;

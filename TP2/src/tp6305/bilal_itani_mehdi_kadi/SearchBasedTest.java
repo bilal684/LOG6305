@@ -257,11 +257,11 @@ public class SearchBasedTest extends CoverageTest {
 	private void initializeRandomData() {
 		data.put(Operand.zero.name(), 0.0f);
 		Random rand = new Random();
-		data.put(Operand.side1.name(), round(MIN + rand.nextFloat() * (MAX - MIN), 2));
+		data.put(Operand.side1.name(), round(MIN + rand.nextFloat() * (MAX - MIN), 2)); //side 1 is a random float between MIN and MAX
 		rand = new Random(); // To reinitiate the seed.
-		data.put(Operand.side2.name(), round(MIN + rand.nextFloat() * (MAX - MIN), 2));
+		data.put(Operand.side2.name(), round(MIN + rand.nextFloat() * (MAX - MIN), 2)); //side 2 is a random float between MIN and MAX
 		rand = new Random(); // To reinitiate the seed.
-		data.put(Operand.side3.name(), round(MIN + rand.nextFloat() * (MAX - MIN), 2));
+		data.put(Operand.side3.name(), round(MIN + rand.nextFloat() * (MAX - MIN), 2)); //side 3 is a random float between MIN and MAX
 		fixSums();
 	}
 
