@@ -53,6 +53,7 @@ public class SearchBasedTest extends CoverageTest {
 					internalIt = 0;
 					pathIdx = 0;
 					initializeRandomData();
+					satisfiedConditions = 0;
 					iterationNum++;
 					break;
 				}
