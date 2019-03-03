@@ -41,7 +41,7 @@ AIC(m1_model)
 
 
 #Create the model formula, bugs ~ complexity + rewview_rate + review_churn_rate + too_quick because these features are very corelated.
-m2_formula <- as.formula("bugs ~ size + minor + major + ownership + review_rate")
+m2_formula <- as.formula("bugs ~ size : complexity + minor + major + ownership + review_rate")
 #Build the logit model for binary data, e.g to determine the presence or not of bugs in the source files
 m2_model <- glm(m2_formula, data=train_data, family=binomial("logit"))
 #To display the model built-in summary to display the statistical test
