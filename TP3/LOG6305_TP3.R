@@ -99,11 +99,11 @@ accuracy_m1_model <- (confusion_matrix_m1_model["FALSE", "FALSE"] + confusion_ma
 #Accuracy of the m1_model
 print(accuracy_m1_model)
 #Correctness of m1_model
-correctness_m1_model <- (confusion_matrix_m1_model["TRUE", "TRUE"] / (confusion_matrix_m1_model["TRUE", "TRUE"] + confusion_matrix_m1_model["TRUE", "FALSE"]))
+correctness_m1_model <- (confusion_matrix_m1_model["TRUE", "TRUE"] / (confusion_matrix_m1_model["TRUE", "TRUE"] + confusion_matrix_m1_model["FALSE", "TRUE"]))
 #Correctness of m1_model
 print(correctness_m1_model)
 #Completeness of m1_model
-completeness_m1_model <- (confusion_matrix_m1_model["TRUE", "TRUE"] / (confusion_matrix_m1_model["TRUE", "TRUE"] + confusion_matrix_m1_model["FALSE", "TRUE"]))
+completeness_m1_model <- (confusion_matrix_m1_model["TRUE", "TRUE"] / (confusion_matrix_m1_model["TRUE", "TRUE"] + confusion_matrix_m1_model["TRUE", "FALSE"]))
 #Completeness of m1_model
 print(completeness_m1_model)
 
@@ -118,11 +118,11 @@ accuracy_m2_model <- (confusion_matrix_m2_model["FALSE", "FALSE"] + confusion_ma
 #Accuracy of m2_model
 print(accuracy_m2_model)
 #Correctness of m2_model
-correctness_m2_model <- (confusion_matrix_m2_model["TRUE", "TRUE"] / (confusion_matrix_m2_model["TRUE", "TRUE"] + confusion_matrix_m2_model["TRUE", "FALSE"]))
+correctness_m2_model <- (confusion_matrix_m2_model["TRUE", "TRUE"] / (confusion_matrix_m2_model["TRUE", "TRUE"] + confusion_matrix_m2_model["FALSE", "TRUE"]))
 #Correctness of m2_model
 print(correctness_m2_model)
 #Completeness of m2_model
-completeness_m2_model <- (confusion_matrix_m2_model["TRUE", "TRUE"] / (confusion_matrix_m2_model["TRUE", "TRUE"] + confusion_matrix_m2_model["FALSE", "TRUE"]))
+completeness_m2_model <- (confusion_matrix_m2_model["TRUE", "TRUE"] / (confusion_matrix_m2_model["TRUE", "TRUE"] + confusion_matrix_m2_model["TRUE", "FALSE"]))
 #Completeness of m2_model
 print(completeness_m2_model)
 
@@ -137,10 +137,10 @@ accuracy_m3_model <- (confusion_matrix_m3_model["FALSE", "FALSE"] + confusion_ma
 #Accuracy of m3_model
 print(accuracy_m3_model)
 #Correctness of m3_model
-correctness_m3_model <- (confusion_matrix_m3_model["TRUE", "TRUE"] / (confusion_matrix_m3_model["TRUE", "TRUE"] + confusion_matrix_m3_model["TRUE", "FALSE"]))
+correctness_m3_model <- (confusion_matrix_m3_model["TRUE", "TRUE"] / (confusion_matrix_m3_model["TRUE", "TRUE"] + confusion_matrix_m3_model["FALSE", "TRUE"]))
 #Correctness of m2_model
 print(correctness_m3_model)
 #Completeness of m2_model
-completeness_m3_model <- (confusion_matrix_m3_model["TRUE", "TRUE"] / (confusion_matrix_m3_model["TRUE", "TRUE"] + confusion_matrix_m3_model["FALSE", "TRUE"]))
+completeness_m3_model <- (confusion_matrix_m3_model["TRUE", "TRUE"] / (confusion_matrix_m3_model["TRUE", "TRUE"] + confusion_matrix_m3_model["TRUE", "FALSE"]))
 #Completeness of m2_model
 print(completeness_m3_model)
