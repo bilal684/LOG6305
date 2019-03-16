@@ -82,7 +82,7 @@ AIC(m3_model)
 #NOTE Usually we do modifications to m3_model after analyzing Anova and drop1, however we noticed that every modification we do impact negatively the accuracy so we decided to leave the model as is.
 
 
-##########Testing the chosen m1_model(m1_model instead of XXXXXXXXXX model because YYYYYYYYY)##########
+##########Testing the chosen models##########
 test_file <- "qt51.csv"
 #Read the test data
 test_data <- read.csv(test_file, header=T, sep=",")
