@@ -12,25 +12,30 @@ def rotate(img, rad_angle):
     # to complete
     #pass
     image = np.copy(img)
-    return transform.AffineTransform(image, rotation=rad_angle) #transform.rotate(img, math.degrees(rad_angle))
+    tf = transform.AffineTransform(rotation=rad_angle)
+    return transform.warp(image, tf) #transform.rotate(img, math.degrees(rad_angle))
 
 def translate(img, trans_x, trans_y):
     # to complete
     #pass
     image = np.copy(img)
-    return transform.AffineTransform(image, translation=(trans_x, trans_y))
+    tf = transform.AffineTransform(translation=(trans_x, trans_y))
+    return transform.warp(image, tf)
+    #return transform.AffineTransform(image, translation=(trans_x, trans_y))
 
 def scale(img, scale_1, scale_2):
     # to complete 
     #pass
     image = np.copy(img)
-    return transform.AffineTransform(image, scale=(scale_1, scale_2))
+    tf = transform.AffineTransform(scale=(scale_1, scale_2))
+    return transform.warp(image, tf)
 
 def shear(img, factor):
     # to complete 
     #pass
     image = np.copy(img)
-    return transform.AffineTransform(image, shear=factor)
+    tf = transform.AffineTransform(shear=factor)
+    return transform.warp(image, tf)
     
 def blur(img, sigma):
     # to complete
@@ -54,13 +59,13 @@ def change_sharpness(img, factor):
     # to complete
     #pass
     image = np.copy(img)
-    return restoration.denoise_bilateral(image, sigma_spatial=factor)
+    return restoration.denoise_bilateral(image, sigma_spatial=factor, multichannel=False)
 
-def add_random_noise(img, delta, proba):
+def add_random_noise(img, delta, proba): #TODO check this
     # to complete
     #pass
     image = np.copy(img)
-    return util.random_noise(image, mean=delta, amount=proba)
+    return util.random_noise(image, mean=delta)
 
 def build_random_transformation():
     # to complete
@@ -70,7 +75,7 @@ def build_random_transformation():
     for i in range(0, numberOfTransformations):
         rand = random.randint(1,10)
         while rand in transformation:
-            rand = random.random(1,10)
+            rand = random.randint(1,10)
         transformation.append(rand)
     return transformation
 
@@ -94,11 +99,11 @@ def apply_transformation(image_origin, transformation):
             similarity_values.append(compute_similarity(image_origin, rotatedImg))
         elif i == 2: #translate, maximum translation is half of x and half of y
             y, x = last.shape
-            translatedImg = translate(last, random.randint(x/2), random.randint(y/2))
+            translatedImg = translate(last, random.randint(0,x/2), random.randint(0,y/2))
             transformed_data.append(translatedImg)
             similarity_values.append(compute_similarity(image_origin, translatedImg))
         elif i == 3: #scale. Scale factors are between 0.5 and 2, chosen arbitrarily.
-            scaledImg = scale(last, 2 * random.rand() + 0.5, 2 * random.rand() + 0.5)
+            scaledImg = scale(last, 2 * random.random() + 0.5, 2 * random.random() + 0.5)
             transformed_data.append(scaledImg)
             similarity_values.append(compute_similarity(image_origin, scaledImg))
         elif i == 4: #shear
@@ -106,7 +111,7 @@ def apply_transformation(image_origin, transformation):
             transformed_data.append(shearedImg)
             similarity_values.append(compute_similarity(image_origin, shearedImg))
         elif i == 5: #blur
-            bluredImg = blur(last, random.randint(10))
+            bluredImg = blur(last, random.randint(1,10))
             transformed_data.append(bluredImg)
             similarity_values.append(compute_similarity(image_origin, bluredImg))
         elif i == 6: #change_brightness

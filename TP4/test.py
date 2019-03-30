@@ -7,6 +7,7 @@ import argparse
 import matplotlib
 import generators
 
+
 def test_model(checkpoint_path, model, n_elements, max_iterations, testing_dataset, sim_threshold):
     x_test, y_test = testing_dataset
     test_data = Dataset(x_test, y_test)
@@ -33,8 +34,8 @@ if __name__ == "__main__":
     parser.add_argument('--n', help='help')
     parser.add_argument('--max', help='help')
     args = vars(parser.parse_args())
-    n_elements = int(args['n'])
-    max_iterations = int(args['max'])
+    n_elements = 1000#int(args['n'])
+    max_iterations = 10#int(args['max'])
     results_path = '../results'
     if not os.path.isdir(results_path):
         os.mkdir(results_path)
@@ -42,5 +43,5 @@ if __name__ == "__main__":
     #learner parameters are inserted randomly to not have exceptions, but the model will be loaded from the checkpoint file
     model = learners.LeNet(lr=0.01,w_decay=0.0,keep_p=0.5)
     checkpoint_path = "./backup.ckpt"
-    sim_threshold = ...#to prefix
+    sim_threshold = 0.1#...#to prefix
     test_model(checkpoint_path=checkpoint_path, model=model, n_elements=n_elements, max_iterations=max_iterations, testing_dataset=(x_test, y_test), sim_threshold=sim_threshold)
