@@ -31,9 +31,15 @@ class Generator(object):
         # if test fails, store the resulting image
         # self.store_data(image, predicted_class)
         #self.store_data(generated_data, 1)
-        test = generated_data[0]
+        for i in range(0, 5):
+            max = np.amax(logits[i])
+            if max != logits[i][self.target_class]:
+                kek = np.argmax(logits[i])
+                self.store_data(generated_data[i].astype(int), np.argmax(logits[i]))
+
+        #test = generated_data[0]
         #io.imsave("C:\\Users\\bitani\\Desktop\\LOG6305\\TP4\\1.jpg", generated_data[0])
-        pass
+        #pass
 
     def get_rand_candidate(self):
         return trans.build_random_transformation()

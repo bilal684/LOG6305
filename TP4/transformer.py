@@ -8,6 +8,7 @@ from skimage import util
 from skimage.filters.rank import mean_bilateral
 import random
 import math
+#from skimage import io
 
 def rotate(img, rad_angle): #affine
     # to complete
@@ -15,10 +16,10 @@ def rotate(img, rad_angle): #affine
     y, x = image.shape
     shift_y = (y - 1) / 2.
     shift_x = (x - 1) / 2.
-    tf_rotate = transform.SimilarityTransform(rotation=rad_angle)
-    tf_shift = transform.SimilarityTransform(translation=[-shift_x, -shift_y])
-    tf_shift_inv = transform.SimilarityTransform(translation=[shift_x, shift_y])
-    image_rotated = transform.warp(image, (tf_shift + (tf_rotate + tf_shift_inv)).inverse, order=3)
+    tf_rotate = transform.AffineTransform(rotation=rad_angle)
+    tf_shift = transform.AffineTransform(translation=[-shift_x, -shift_y])
+    tf_shift_inv = transform.AffineTransform(translation=[shift_x, shift_y])
+    image_rotated = transform.warp(image, (tf_shift + (tf_rotate + tf_shift_inv)).inverse, preserve_range=True)
     return image_rotated
 
 def translate(img, trans_x, trans_y): #affine
@@ -26,21 +27,21 @@ def translate(img, trans_x, trans_y): #affine
     #pass
     image = np.copy(img)
     tf = transform.AffineTransform(translation=(trans_x, trans_y))
-    return transform.warp(image, tf)
+    return transform.warp(image, tf, preserve_range=True)
 
 def scale(img, scale_1, scale_2): #affine
     # to complete 
     #pass
     image = np.copy(img)
     tf = transform.AffineTransform(scale=(scale_1, scale_2))
-    return transform.warp(image, tf)
+    return transform.warp(image, tf, preserve_range=True)
 
 def shear(img, factor): #affine
     # to complete 
     #pass
     image = np.copy(img)
     tf = transform.AffineTransform(shear=factor)
-    return transform.warp(image, tf)
+    return transform.warp(image, tf, preserve_range=True)
     
 def blur(img, sigma): #pixel
     # to complete
@@ -106,9 +107,15 @@ def apply_transformation(image_origin, transformation):
 
     transformed_data.append(image)
     sim = compute_similarity(image_origin, image)
-    transformed_data.append(rotate(image, 2 * math.pi * random.random()))
+    transformed_data.append(rotate(image, random.random() - 0.5))
     y, x = image.shape
     transformed_data.append(translate(image, random.randint(0,x/4), random.randint(0,y/4)))
     transformed_data.append(scale(image, random.random() * 1.5, random.random() * 1.5))
     transformed_data.append(shear(image,  0.5 * random.random()))
     return transformed_data, sim
+
+#img = io.imread("C:\\Users\\bitani\\Desktop\\1.jpg", as_gray=True)
+
+#rotated = rotate(img, math.pi)
+
+#io.imsave("C:\\Users\\bitani\\Desktop\\3.jpg", rotated)
