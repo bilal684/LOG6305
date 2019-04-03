@@ -34,7 +34,6 @@ class Generator(object):
         for i in range(0, 5):
             max = np.amax(logits[i])
             if max != logits[i][self.target_class]:
-                kek = np.argmax(logits[i])
                 self.store_data(generated_data[i].astype(int), np.argmax(logits[i]))
 
         #test = generated_data[0]

@@ -20,57 +20,92 @@ def rotate(img, rad_angle): #affine
     tf_shift = transform.AffineTransform(translation=[-shift_x, -shift_y])
     tf_shift_inv = transform.AffineTransform(translation=[shift_x, shift_y])
     image_rotated = transform.warp(image, (tf_shift + (tf_rotate + tf_shift_inv)).inverse, preserve_range=True)
-    return image_rotated
+    assert (np.count_nonzero(image_rotated) > 0)
+    return image_rotated.astype(np.uint8)
 
 def translate(img, trans_x, trans_y): #affine
     # to complete
     #pass
     image = np.copy(img)
     tf = transform.AffineTransform(translation=(trans_x, trans_y))
-    return transform.warp(image, tf, preserve_range=True)
+    translatedImg = transform.warp(image, tf, preserve_range=True).astype(np.uint8)
+    assert (np.count_nonzero(translatedImg) > 0)
+    return translatedImg
 
 def scale(img, scale_1, scale_2): #affine
     # to complete 
     #pass
     image = np.copy(img)
     tf = transform.AffineTransform(scale=(scale_1, scale_2))
-    return transform.warp(image, tf, preserve_range=True)
+    scaledImg = transform.warp(image, tf, preserve_range=True).astype(np.uint8)
+    assert (np.count_nonzero(scaledImg) > 0)
+    return scaledImg
 
 def shear(img, factor): #affine
     # to complete 
     #pass
     image = np.copy(img)
     tf = transform.AffineTransform(shear=factor)
-    return transform.warp(image, tf, preserve_range=True)
+    shearedImg = transform.warp(image, tf, preserve_range=True).astype(np.uint8)
+    assert (np.count_nonzero(shearedImg) > 0)
+    return shearedImg
     
 def blur(img, sigma): #pixel
     # to complete
     #pass
     image = np.copy(img)
-    return filters.gaussian(image, sigma=sigma)
+    blurredImg = filters.gaussian(image, sigma=sigma).astype(np.uint8)
+    assert (np.count_nonzero(blurredImg) > 0)
+    return blurredImg
 
 def change_brightness(img, factor): #pixel
     # to complete
     #pass
     image = np.copy(img)
-    return exposure.adjust_gamma(image, gain=factor)
+    changedBrightnessImg = exposure.adjust_gamma(image, gain=factor).astype(np.uint8)
+    assert(np.count_nonzero(changedBrightnessImg))
+    return changedBrightnessImg
 
 def change_contrast(img, factor): #pixel
     # to complete 
     #pass
     image = np.copy(img)
-    return exposure.adjust_gamma(image, gamma=factor)
+    changedContrastImg = exposure.adjust_gamma(image, gamma=factor).astype(np.uint8)
+    assert (np.count_nonzero(changedContrastImg))
+    return changedContrastImg
 
 #See : http://scikit-image.org/docs/0.12.x/auto_examples/xx_applications/plot_rank_filters.html
+#Un filtre bilateral permet d'ameliorer le sharpness
 def change_sharpness(img, factor): #pixel
     image = np.copy(img)
-    return mean_bilateral(image, disk(factor))
+    changedSharpnessImg = mean_bilateral(image, disk(factor))
+    assert(np.count_nonzero(changedSharpnessImg))
+    return changedSharpnessImg
 
 def add_random_noise(img, delta, proba): #pixel
     # to complete
     #pass
+    #pure = np.linspace(-1, 1, 100)
+    #image = np.copy(img)
     image = np.copy(img)
-    return util.random_noise(image, mean=proba, var=delta)
+    noise = np.zeros(image.shape)
+    sizeY, sizeX = image.shape
+    for j in range(0, sizeY):
+        for i in range(0, sizeX):
+            randomPixelChoiceProba = random.random()
+            if randomPixelChoiceProba < proba:
+                noise[j][i] += delta
+    noisyImg = (image + noise).astype(np.uint8)
+    assert(np.count_nonzero(noisyImg) > 0)
+    return noisyImg
+
+
+    #test = np.random.random(image.shape)
+
+    #noisy = image + delta * image.std() * np.random.random(image.shape)
+    #return noisy.astype(np.uint8)
+    #image = np.copy(img)
+    #return util.random_noise(image, clip=False, mean=proba, var=delta)
 
 def build_random_transformation(): #pixel
     # to complete
@@ -93,6 +128,8 @@ def compute_similarity(first_img, second_img): #TODO ask him what the use of thi
 def apply_transformation(image_origin, transformation):
     transformed_data = []
     image = np.copy(image_origin)
+    #ct = np.count_nonzero(image_origin)
+    assert(np.count_nonzero(image_origin) > 0)
     for i in transformation:
         if i == 1: #blur - pixel
             image = blur(image, random.randint(1,10))
@@ -103,15 +140,15 @@ def apply_transformation(image_origin, transformation):
         elif i == 4: #change_sharpness - pixel
             image = change_sharpness(image, 500 * random.random())
         else: #add_random_noise - pixel
-            image = add_random_noise(image, 0.25 * random.random(), 0.1 * random.random())
+            image = add_random_noise(image, 5 * random.random() + 5, random.random())
 
     transformed_data.append(image)
     sim = compute_similarity(image_origin, image)
     transformed_data.append(rotate(image, random.random() - 0.5))
     y, x = image.shape
-    transformed_data.append(translate(image, random.randint(0,x/4), random.randint(0,y/4)))
-    transformed_data.append(scale(image, random.random() * 1.5, random.random() * 1.5))
-    transformed_data.append(shear(image,  0.5 * random.random()))
+    transformed_data.append(translate(image, random.randint(0, int(x/6)), random.randint(0, int(y/6))))
+    transformed_data.append(scale(image, random.random() + 0.8, random.random() + 0.8))
+    transformed_data.append(shear(image,  0.2 * random.random()))
     return transformed_data, sim
 
 #img = io.imread("C:\\Users\\bitani\\Desktop\\1.jpg", as_gray=True)
