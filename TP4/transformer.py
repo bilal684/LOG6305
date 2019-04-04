@@ -54,9 +54,9 @@ def blur(img, sigma): #pixel
     # to complete
     #pass
     image = np.copy(img)
-    blurredImg = filters.gaussian(image, sigma=sigma).astype(np.uint8)
+    blurredImg = filters.gaussian(image, sigma=sigma) * 255
     assert (np.count_nonzero(blurredImg) > 0)
-    return blurredImg
+    return blurredImg.astype(np.uint8)
 
 def change_brightness(img, factor): #pixel
     # to complete
@@ -132,13 +132,13 @@ def apply_transformation(image_origin, transformation):
     assert(np.count_nonzero(image_origin) > 0)
     for i in transformation:
         if i == 1: #blur - pixel
-            image = blur(image, random.randint(1,10))
+            image = blur(image, random.randint(1,3))
         elif i == 2: #change_brightness - pixel
-            image = change_brightness(image, random.random())
+            image = change_brightness(image, random.random() + 0.5)
         elif i == 3: #change_contrast - pixel
-            image = change_contrast(image, 1.5 * random.random() + 0.5)
+            image = change_contrast(image, 1.5 * random.random() + 0.8)
         elif i == 4: #change_sharpness - pixel
-            image = change_sharpness(image, 500 * random.random())
+            image = change_sharpness(image, 5 * random.random() + 0.8)
         else: #add_random_noise - pixel
             image = add_random_noise(image, 5 * random.random() + 5, random.random())
 

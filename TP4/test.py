@@ -43,5 +43,5 @@ if __name__ == "__main__":
     #learner parameters are inserted randomly to not have exceptions, but the model will be loaded from the checkpoint file
     model = learners.LeNet(lr=0.01,w_decay=0.0,keep_p=0.5)
     checkpoint_path = "./backup.ckpt"
-    sim_threshold = 0.9
+    sim_threshold = 0.8
     test_model(checkpoint_path=checkpoint_path, model=model, n_elements=n_elements, max_iterations=max_iterations, testing_dataset=(x_test, y_test), sim_threshold=sim_threshold)
