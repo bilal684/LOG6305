@@ -2,7 +2,6 @@ import numpy as np
 import transformer as trans
 import matplotlib
 import os
-from skimage import io
 
 class Generator(object):
 
@@ -30,15 +29,10 @@ class Generator(object):
         # to complete 
         # if test fails, store the resulting image
         # self.store_data(image, predicted_class)
-        #self.store_data(generated_data, 1)
         for i in range(0, 5):
             max = np.amax(logits[i])
             if max != logits[i][self.target_class]:
                 self.store_data(generated_data[i].astype(int), np.argmax(logits[i]))
-
-        #test = generated_data[0]
-        #io.imsave("C:\\Users\\bitani\\Desktop\\LOG6305\\TP4\\1.jpg", generated_data[0])
-        #pass
 
     def get_rand_candidate(self):
         return trans.build_random_transformation()
